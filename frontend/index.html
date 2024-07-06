@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>焦慮解決者 - GenAI TRPG</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <h1>焦慮解決者 - GenAI TRPG</h1>
+        
+        <div id="user-input">
+            <h2>請輸入你的基本資訊</h2>
+            <input type="text" id="user-name" placeholder="你的名字">
+            <textarea id="anxiety-source" placeholder="描述你的焦慮來源" rows="3"></textarea>
+            <button onclick="startGame()">開始遊戲</button>
+        </div>
+        
+        <div id="game-play" style="display:none;">
+            <div id="progress-bar"><div id="progress"></div></div>
+            <div id="dialogue-area"></div>
+            <div id="characters"></div>
+            <div id="choices"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
