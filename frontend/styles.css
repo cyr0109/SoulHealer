@@ -99,6 +99,7 @@ button:hover {
 .npc-dialogue {
     align-self: flex-start;
     background-color: #272f36;
+    color: white;
 }
 
 .user-dialogue {

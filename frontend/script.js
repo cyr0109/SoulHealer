@@ -3,6 +3,7 @@ const API_URL = 'http://localhost:5000'; // 確保這指向您的Flask後端
 let gameState = {
     userName: '',
     anxietySource: '',
+    story: '',
     characters: [],
     userThought: '',
     selectedCharacters: null,
@@ -25,8 +26,33 @@ async function startGame() {
     addDialogueEntry(`歡迎，${gameState.userName}！讓我們開始解決你的焦慮問題。`, 'system');
     addDialogueEntry(`我的焦慮來源是：${gameState.anxietySource}`, 'user');
 
+    await generateStory();
     await generateCharacters();
     createCharacters();
+}
+
+async function generateStory() {
+    addDialogueEntry('正在生成適合你的故事...', 'system');
+    try {
+        const response = await fetch(`${API_URL}/generate-story`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userName: gameState.userName,
+                anxietySource: gameState.anxietySource
+            }),
+        });
+        const data = await response.json();
+        gameState.story = data.story;
+        addDialogueEntry('故事生成完成！', 'system');
+        addDialogueEntry(gameState.story, 'system');
+    } catch (error) {
+        console.error('Error generating characters:', error);
+        addDialogueEntry('生成角色時發生錯誤，使用預設故事。', 'system');
+        gameState.story = '有個人叫小菜，然後他就被端走了';
+    }
 }
 
 async function generateCharacters() {
@@ -39,7 +65,8 @@ async function generateCharacters() {
             },
             body: JSON.stringify({
                 userName: gameState.userName,
-                anxietySource: gameState.anxietySource
+                anxietySource: gameState.anxietySource,
+                story: gameState.story
             }),
         });
         gameState.characters = await response.json();
@@ -60,7 +87,7 @@ async function generateCharacters() {
 
 
 async function interact(character) {
-    addDialogueEntry(`${character.name}正在生成回應你的話...`, 'system');
+    // addDialogueEntry(`${character.name}正在生成回應你的話...`, 'system');
     gameState.userThought = document.getElementById('user-thought').value;
     document.getElementById('user-thought').value = '';
     try {

@@ -95,6 +95,43 @@ def parse_characters(response):
 
     return characters if characters else None
 
+@app.route('/generate-story', methods=['POST', 'OPTIONS'])
+def generate_story():
+    """Generate story based on user input."""
+    if request.method == 'OPTIONS':
+        return '', 204
+    
+    app.logger.info("Received request to generate story")
+    
+    try:
+        data = request.json
+        app.logger.debug(f"Received data: {data}")
+
+        if not data:
+            return jsonify({'error': 'No data provided'}), 400
+        
+        user_name = data.get('userName')
+        anxiety_source = data.get('anxietySource')
+        
+        if not user_name or not anxiety_source:
+            return jsonify({'error': 'Missing userName or anxietySource'}), 400
+        
+        prompt = f"""
+        你是一位trpg game designer, 請根據以下訊息以繁體中文(Traditional Mandarin) 生成一個能感動我的trpg 故事：
+        使用者名稱: {user_name}
+        焦慮來源: {anxiety_source}
+        並以一段話呈現
+        """
+        
+        response = generate_gemini_response(prompt)
+        app.logger.debug(f"Gemini API response: {response}")
+
+        return jsonify({'story': response})
+    except Exception as e:
+        app.logger.error(f"Unexpected error in generate_characters: {e}")
+        app.logger.error(traceback.format_exc())
+        return jsonify({'error': 'An unexpected error occurred'}), 500
+
 @app.route('/generate-characters', methods=['POST', 'OPTIONS'])
 def generate_characters():
     """Generate characters based on user input."""
@@ -112,14 +149,15 @@ def generate_characters():
         
         user_name = data.get('userName')
         anxiety_source = data.get('anxietySource')
-        
+        story = data.get('story')
         if not user_name or not anxiety_source:
             return jsonify({'error': 'Missing userName or anxietySource'}), 400
         
         prompt = f"""
-        請根據以下訊息以繁體中文(Traditional Mandarin) 生成6位角色:
+        你是一位trpg game designer, 請根據以下訊息以繁體中文(Traditional Mandarin) 生成6位故事中的角色:
         使用者名稱: {user_name}
         焦慮來源: {anxiety_source}
+        故事: {story}
         每位角色皆應包含:名字、描述、如何幫助解決焦慮
         請確保以JSON格式返回結果不是Markdown，格式如下:
         [
