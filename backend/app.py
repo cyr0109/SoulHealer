@@ -168,6 +168,7 @@ def generate_characters():
             {{"name": "角色名字", "description": "角色描述", "help": "角色如何幫助解決焦慮"}},
             {{"name": "角色名字", "description": "角色描述", "help": "角色如何幫助解決焦慮"}}
         ]
+        角色名稱應像正常人名
         """
         
         response = generate_gemini_response(prompt)
@@ -218,14 +219,12 @@ def generate_interaction():
             return jsonify({'error': 'Missing required data'}), 400
         
         prompt = f"""
-        請根據以下訊息以繁體中文(Traditional Mandarin)生成生成這位角色的回應並以一句話呈現:
+        想像你是選擇的角色，請根據以下訊息以繁體中文(Traditional Mandarin)生成對使用者的想法的回應並以一句話呈現:
         格式為："角色名稱"："回應"
         使用者名稱: {user_name}
-        焦虑来源: {anxiety_source}
-        选择的角色: {character['name']}
-        角色能如何帮助: {character['help']}
+        選擇的角色: {character['name']}
+        角色的敘述: {character['description']}
         使用者的想法: {user_thought}
-        当前进度: {progress}%
         """
         
         response = generate_gemini_response(prompt)

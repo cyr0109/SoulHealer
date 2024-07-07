@@ -89,6 +89,7 @@ async function generateCharacters() {
 async function interact(character) {
     // addDialogueEntry(`${character.name}正在生成回應你的話...`, 'system');
     gameState.userThought = document.getElementById('user-thought').value;
+    addDialogueEntry(`${gameState.userThought}`, 'user');
     document.getElementById('user-thought').value = '';
     try {
         const response = await fetch(`${API_URL}/generate-interaction`, {
