@@ -3,34 +3,43 @@ body {
     line-height: 1.6;
     color: #333;
     /* max-width: 800px; */
+
     margin: 0 auto;
     padding: 20px;
     background-color: #f4f4f4;
+
+    background-image: url("bg.webp");
 }
 
 #game-container {
-    background-color: white;
+    background-color: rgba(55, 57, 85, 0.676);
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 h1, h2 {
-    color: #2c3e50;
+    color: #dde5ed;
+    font-family: 'Papyrus', sans-serif; /* Default font family */
 }
 
 input[type="text"], textarea {
     width: calc(100% - 20px); /* Adjusted width to accommodate padding */
     padding: 12px; /* Increased padding for better spacing */
     margin-bottom: 15px; /* Adjusted margin for spacing between elements */
-    border: 1px solid #ccc;
+    border: 1px solid #2c3043;
     border-radius: 6px;
     font-size: 16px;
+    outline: none;
     transition: border-color 0.3s;
+    background-color: rgb(9, 12, 18);
+    color: white;
+    font-family: 'Papyrus', sans-serif; /* Default font family */
+
 }
 
 input[type="text"]:focus, textarea:focus {
-    border-color: #3498db; /* Highlight border color on focus */
+    border-color: #183a55; /* Highlight border color on focus */
 }
 
 textarea {
@@ -38,18 +47,19 @@ textarea {
 }
 
 button {
-    background-color: #3498db;
+    background-color: #3e4850;
     color: white;
-    border: none;
     padding: 12px 20px; /* Increased padding for better button size */
+    width: 100%;
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.3s;
     font-size: 16px;
+    font-family: 'Papyrus', sans-serif; /* Default font family */
 }
 
 button:hover {
-    background-color: #2980b9;
+    background-color: #3e48506b;
 }
 
 #progress-bar {
@@ -67,9 +77,11 @@ button:hover {
 }
 
 #dialogue-area {
+    background-image: url("/SoulHealer/public/4025e135470ade059a7c4de3dd2a40c7.jpg");
     height: 250px;
     overflow-y: auto;
     border: 1px solid #ccc;
+    border-radius: 10px;
     padding: 10px;
     margin-bottom: 20px;
     display: flex;
@@ -86,19 +98,20 @@ button:hover {
 
 .npc-dialogue {
     align-self: flex-start;
-    background-color: #e6f3ff;
+    background-color: #272f36;
 }
 
 .user-dialogue {
     align-self: flex-end;
-    background-color: #d4edda;
+    background-color: #d6dae1;
     text-align: right;
 }
 
 .system-dialogue {
     align-self: center;
-    background-color: #ffe6e6;
+    background-color: #545860;
     font-style: italic;
+    color: white;
 }
 
 #characters {
@@ -124,11 +137,10 @@ button:hover {
 }
 
 .choice-button {
-    background-color: #28a445;
+    background-color: #094736;
     color: white;
-    border: none;
     padding: 15px 20px; /* Adjust padding as needed */
-    border-radius: 4px;
+    border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
     flex-grow: 1;
@@ -139,5 +151,5 @@ button:hover {
 }
 
 .choice-button:hover {
-    background-color: #218838;
+    background-color: #23292e;
 }
